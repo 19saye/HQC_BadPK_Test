@@ -1,0 +1,4 @@
+badpk
+*.o
+*.obj
+.DS_Store
