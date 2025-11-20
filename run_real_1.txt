@@ -1,0 +1,6 @@
+Hello Day2
+PK=2249 SK=2305 CT=4433 SS=64
+enc: 18 C5 B7 D8 E1 D4 86 96
+dec: 18 C5 B7 D8 E1 D4 86 96
+baseline match = YES
+dec(badpk) fail

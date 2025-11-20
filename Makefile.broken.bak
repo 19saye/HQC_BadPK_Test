@@ -1,0 +1,38 @@
+.RECIPEPREFIX := >
+INC_DIR := ../PrscHQC/include
+SRC_DIR := ../PrscHQC/src
+
+
+PQCLEAN_DIR := vendor/pqclean/crypto_kem/hqc-128/clean
+
+SUPPORT_DIR := support
+
+CC := clang
+CFLAGS := -O3 -std=c11 -Wall -Wextra -Wno-unused-parameter
+
+mock: badpk
+badpk: experiments/badpk.c
+> $(CC) $(CFLAGS) -I$(INC_DIR) $^ \
+> $(SRC_DIR)/channel.c $(SRC_DIR)/crypto.c $(SRC_DIR)/packet.c \
+> -o $@
+
+real: badpk_real
+
+badpk_real : experiments/badpk_real.c $(SUPPORT_DIR)/randombytes.c
+> $(CC) $(CFLAGS) -I$(PQCLEAN_DIR) -I$(SUPPORT_DIR) $^ \
+> $(PQCLEAN_DIR)/code.c \
+> $(PQCLEAN_DIR)/fft.c  \
+> $(PQCLEAN_DIR)/gf.c   \
+> $(PQCLEAN_DIR)/gf2x.c \
+> $(PQCLEAN_DIR)/hqc.c  \
+> $(PQCLEAN_DIR)/kem.c  \
+> $(PQCLEAN_DIR)/parsing.c \
+> $(PQCLEAN_DIR)/vector.c \
+> $(PQCLEAN_DIR)/reed_muller.c \
+> $(PQCLEAN_DIR)/reed_solomon.c \
+> $(PQCLEAN_DIR)/shake_ds.c \
+> $(PQCLEAN_DIR)/shake_prng.c \
+> -o $@
+
+clean:
+> rm -f badpk badpk_real

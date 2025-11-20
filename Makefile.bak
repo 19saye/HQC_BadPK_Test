@@ -33,7 +33,7 @@ badpk_real: experiments/badpk_real.c $(SUPPORT_DIR)/randombytes.c
 		$(PQCLEAN_DIR)/shake_ds.c \
 		$(PQCLEAN_DIR)/shake_prng.c \
 		$(PQCOMMON_DIR)/fips202.c \
-		$(PQCOMMON_DIR)/sp800-185.c \
+		$(PQCOMMON_DIR)/keccakf1600.c \
 		-o $@
 
 .PHONY: clean

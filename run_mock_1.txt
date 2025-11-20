@@ -1,0 +1,14 @@
+Hello Day2
+PK=32 SK=32 CT=16 SS=32
+pk     : AE 95 F0 DF 3A 61 4C AB
+pk_calc: AE 95 F0 DF 3A 61 4C AB
+PK selfcheck = EQUAL
+ss_exp : A9 81 D1 F1 01 29 19 C9
+ENC exp==out = YES
+DEC exp==out = YES
+enc: A9 81 D1 F1 01 29 19 C9
+dec: A9 81 D1 F1 01 29 19 C9
+baseline match = YES
+enc_bad: A8 81 D1 F1 01 29 19 C9
+dec_bad: A9 81 D1 F1 01 29 19 C9
+badpk match = NO
