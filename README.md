@@ -1,58 +1,79 @@
- (PQC_Prsch/BadPK)
+# PQC_Prsch / BadPK
 
-Bu repo, araç sensör verisini post-kuantum kripto (PQC) KEM ile koruma
-fikrini denemek için hazırlanmış küçük bir test ortamıdır.
+> ⚠️ **Disclaimer**  
+> This repository is an independent academic and personal study.  
+> It is **not affiliated with, endorsed by, or developed in collaboration with**  
+> Porsche AG or any other automotive manufacturer.  
+> All telemetry scenarios and formats are used for **educational and research purposes only**.
+---
+## Overview
 
-Toy model bünyesinde iki ana kısım vardır:
+This repository provides a small experimental testbed to explore the use of
+**Post-Quantum Cryptography (PQC) KEM mechanisms** for protecting
+**automotive-like sensor telemetry**.
 
- 1) "mock" modu: tamamen deterministik ve eğitim amaçlı bir KEM modeli.
- 2) "real" modu: PQClean içindeki HQC-128 (clean)  implementasyonunu kullanır.
+The main focus of the project is the analysis of **KEM failure behavior**
+under **malformed or corrupted public key (Bad Public Key / BadPK) scenarios**.
 
-Her iki modda da aynı “BadPK deneyi” yapılır:
+Rather than optimizing for performance or production deployment,
+this work aims to create a **minimal, reproducible, and educational environment**
+to observe how different KEM designs react to invalid public keys.
 
-Doğru public key ile türetilen shared secret ile,tek biti bozulmuş public key (`pk_bad`) ile türetilen shared secret’ı
-karşılaştırıyoruz.Gerçek HQC-128’te bu, decaps tarafında hata  olarak ortaya çıkıyorr
-(`dec(badpk) fail`).
+---
 
+## Project Structure
 
-## Derleme
+The project consists of two main modes:
 
-### 1. Mock (eğitsel) KEM
+1. **Mock mode**  
+   A fully deterministic, educational KEM toy model designed to make
+   key derivation and failure behavior explicit and easy to observe.
+
+2. **Real mode**  
+   Uses the standardized **HQC-128 (clean) implementation from PQClean**,
+   representing a real post-quantum KEM with IND-CCA2 security.
+
+The same BadPK experiment is applied to both modes.
+
+---
+
+## Bad Public Key (BadPK) Experiment
+
+For each mode, the following comparison is performed:
+
+- A shared secret derived using a **valid public key**
+- A shared secret derived using a **single-bit corrupted public key (`pk_bad`)**
+
+Expected behavior:
+
+- **Valid public key** → shared secrets match
+- **Corrupted public key** → shared secret mismatch or decapsulation failure
+
+In the real HQC-128 implementation, the corrupted public key results in a
+**decapsulation failure (`dec(badpk) fail`)**, as expected from a secure KEM.
+
+---
+
+## Build & Run
+
+### 1. Mock (Educational) KEM
 
 ```bash
 make mock
 ./badpk
-# HQC Bad Public Key Test
-ÖRNEK ÇIKTI: 
+
+EXAMPLE OUTPUT:
 PK=32 SK=32 CT=16 SS=32
 PK selfcheck = EQUAL
 baseline match = YES
 badpk match = NO
 
-''
-baseline match = YES → normal akışta shared secret eşleşiyor.
-badpk match = NO → tek bit bozulmuş public key, eşleşmeyi bozuyor.
-''
+REAL HQC-128 KEM:
+make clean
+make real
+./badpk
 
-Bu proje:
-
-PQClean’in standartlanmış HQC-128 KEM implementasyonunu kullanır.
-Kötü niyetli veya bozulmuş public key → kapsül açma (decaps) başarısızlığı test edilir.
-Araç sensör verileri için hafif bir AEAD toy modeli kullanılır (8 byte veri + 2 byte tag).
-
-Modüller:
-mock/ → Eğitimsel KEM (basit deterministik XOR türevi)
-real/ → PQClean HQC-128 (IND-CCA2 güvenlik düzeyi)
-scripts/ → log karşılaştırma & analiz
-
+EXAMPLE OUTPUT:
 PK=2249 SK=2305 CT=4433 SS=64
 baseline match = YES
-dec(badpk) fail
-/// bu örnek derlemesi:
-make clean
-make mock   # toy model
-make real   # HQC-128 gerçek KEM
-
-“Bad Public Key Attack Surface” test frameworkü, Multi-KEM genişlemeye hazır mimari (HQC, Kyber, Saber…)
-AEAD + KEM kombinasyonu ile hafif araç telemetrsi için kuantum-dayanıklı kanal
-yeniliklerine sahiptir. 
+dec(badpk) fail //this confirms that HQC-128 correctly rejects malformed public keys during decapsulation.
