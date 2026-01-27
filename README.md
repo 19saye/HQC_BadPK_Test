@@ -1,5 +1,10 @@
 # PQC_Prsch / BadPK
 
+## 🏆 Recognition & Awards
+- **3rd Place Winner** – *National Quantum and Deep Tech Entrepreneurship Competition 2025* (Organized by **The Venture Vibe** in collaboration with **UNESCO**, Istanbul Feriye).
+- **Special Distinction:** Recognized as the only solo student researcher/competitor in the finals among deep-tech startups.
+- **Advisor:** Mentored by [Durgun Duran], focusing on the intersection of PQC and industrial applications.
+
 > ⚠️ **Disclaimer**  
 > This repository is an independent academic and personal study.  
 > It is **not affiliated with, endorsed by, or developed in collaboration with**  
