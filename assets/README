@@ -26,7 +26,7 @@ Our lab environment tests the HQC implementation against:
 
 ---
 
-##  Technical Architecture
+## Technical Architecture
 The study aligns with global automotive standards:
 - **ISO 11898 (CAN-Bus)**
 - **ISO 14229 (UDS)**
