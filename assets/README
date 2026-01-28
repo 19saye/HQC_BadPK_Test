@@ -1,0 +1,35 @@
+#  Award-Winning R&D: Automotive PQC Fault-Injection Lab
+**3rd Place Winner** at the National Quantum & Deep Tech Competition (UNESCO-Supported)
+
+###The Problem: "Quantum-Bricking" in Automotive Systems
+As the automotive industry transitions to **Post-Quantum Cryptography (PQC)**, a new vulnerability emerges: **Fault-Induced System Failure.** If a vehicle's telemetry chain receives a corrupted or tampered Public Key (BadPK) due to hardware bit-flips or cyber-attacks, the entire communication could "brick" (freeze), leading to critical safety risks in V2X environments.
+
+### Project Mission
+This project is a **Fault-Injection Testbed** designed to:
+1. Simulate **Corrupted HQC Public Keys** within a synthetic automotive telemetry chain.
+2. Analyze the resilience of KEM (Key Encapsulation Mechanisms) against **Spoofing**, **Replay Attacks**, and **False Data Injection (FDIA)**.
+3. Prevent system lockdowns by ensuring the cryptographic layer gracefully rejects malformed keys.
+
+---
+
+## Experimental Analysis & Visualizations
+*For technical details and methodology of these graphs, please see the [varlıklar/README.md](./varlıklar/README.md) file.*
+
+#### 1. Telemetry Anomaly Detection
+We simulated synthetic vehicle speed signals and injected anomalies to test if the PQC-protected layer can distinguish between normal signal noise and malicious tampering.
+
+#### 2. Attack Simulations (Spoofing & Replay)
+Our lab environment tests the HQC implementation against:
+- **Replay Attacks:** Detecting stale but mathematically valid segments.
+- **Spoofing:** Identifying entirely fabricated speed signals.
+- **FDIA (False Data Injection):** Real-time detection of manipulated telemetry windows.
+
+---
+
+##  Technical Architecture
+The study aligns with global automotive standards:
+- **ISO 11898 (CAN-Bus)**
+- **ISO 14229 (UDS)**
+- **AUTOSAR SWS & W3C VSS**
+
+*Note: This study uses synthetic data formatted like Porsche telemetry. No real vehicle data was used.*
