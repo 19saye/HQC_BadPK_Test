@@ -1,0 +1,46 @@
+# attacks/attack_fdia.py
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("data/porsche_telemetry.csv")
+speed = df["speed_kmh"].values
+
+# FDIA penceresi
+start = 1800
+end   = 2200
+
+# Orijinal sinyal
+normal = speed.copy()
+
+# FDIA manipülasyonu
+fdia_speed = speed.copy()
+fdia_speed[start:end] = fdia_speed[start:end] * 0.60 + 15
+
+# Normal sinyali FDIA bölgesinde gizle
+normal_masked = normal.copy()
+normal_masked[start:end] = np.nan
+
+# Sadece FDIA bölgesini göster
+fdia_masked = np.full_like(fdia_speed, np.nan)
+fdia_masked[start:end] = fdia_speed[start:end]
+
+# Anomali işaretçi
+anomaly_idx = np.arange(start, end, 25)
+
+plt.figure(figsize=(14,6))
+
+plt.plot(normal_masked, color="#cfe3ff", linewidth=1.2, label="Normal speed (clean)")
+plt.plot(fdia_masked, color="red", linewidth=2.0, label="FDIA corrupted signal")
+plt.scatter(anomaly_idx, fdia_speed[anomaly_idx], color="orange", s=35, label="Detected anomalies")
+
+plt.title("False Data Injection Attack – Speed Signal", fontsize=16)
+plt.xlabel("Sample index")
+plt.ylabel("Speed (km/h)")
+plt.grid(True, alpha=0.3)
+plt.legend()
+
+plt.tight_layout()
+plt.savefig("data/fdia_attack_fixed.png", dpi=220)
+print("Saved FDIA plot → data/fdia_attack_fixed.png")
+
