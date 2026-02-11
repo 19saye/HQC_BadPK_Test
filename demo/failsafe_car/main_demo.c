@@ -1,3 +1,4 @@
+#include "aes_gcm.h"
 #include "/Users/raabiyakomur/PQClean/crypto_kem/hqc-128/clean/api.h"
 #include <stdio.h>
 #include <string.h>
@@ -53,6 +54,28 @@ int main(void) {
     } else {
         printf("[PQC] Shared secret verified OK.\n");
     }
+
+
+    // === AES-GCM payload encryption ===
+   uint8_t aes_key[32]; 
+   uint8_t aes_iv[12];
+   memcpy(aes_key, ss, 32);       // First 32 bytes → AES-256 key
+   memcpy(aes_iv, ss + 32, 12);   // Next 12 bytes → IV
+   uint8_t cipher[256];
+   uint8_t tag[16];
+   const uint8_t *plain = (const uint8_t *)dummy_data;
+   size_t plain_len = strlen(dummy_data);
+
+   int enc_ok = aes_gcm_encrypt(aes_key, aes_iv,
+                             plain, plain_len,
+                             cipher, tag);
+
+   if (!enc_ok) {
+        printf("[AES] Encryption failed! FAILSAFE.\n");
+   } else {
+        printf("[AES] AES-GCM encrypted sensor payload (%zu bytes).\n", plain_len);
+   }
+
 
     // ECU state machine
     ecu_handle_packet(&ecu, &pkt);
