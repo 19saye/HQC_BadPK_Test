@@ -1,5 +1,5 @@
 #include "aes_gcm.h"
-#include "/Users/raabiyakomur/PQClean/crypto_kem/hqc-128/clean/api.h"
+#include "api.h"
 #include <stdio.h>
 #include <string.h>
 #include "packet_format.h"

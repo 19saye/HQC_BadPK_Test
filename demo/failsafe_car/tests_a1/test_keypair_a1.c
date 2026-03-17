@@ -1,5 +1,5 @@
-#include "/Users/raabiyakomur/PQClean/crypto_kem/hqc-128/clean/api.h"
-#include "/Users/raabiyakomur/PQClean/crypto_kem/hqc-128/clean/parameters.h"
+#include "api.h"
+#include "parameters.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
