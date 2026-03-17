@@ -32,7 +32,7 @@ Three layers of defense are implemented and tested:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    PORSCHE SERVER SIDE                      │
+│                    SERVER SIDE                      │
 │                                                             │
 │   ML-DSA-44 keypair          HQC-128 keypair                │
 │   Sign firmware  ──────┐     Encapsulate session key ──┐   │
