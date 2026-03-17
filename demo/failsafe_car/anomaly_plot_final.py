@@ -36,7 +36,7 @@ ax[0].scatter(np.where(real_anom==1)[0], speed[real_anom==1],
               color="#00dbff", s=50, label="Real anomaly")
 
 ax[0].set_ylabel("Speed (km/h)")
-ax[0].set_title("Porsche Telemetry – Multi-signal Anomaly Detection")
+ax[0].set_title("Automotive Telemetry – Multi-signal Anomaly Detection")
 ax[0].legend(loc="upper right")
 
 # --- Panel 2: Error ---

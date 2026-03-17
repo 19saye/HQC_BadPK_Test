@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 
-def generate_porsche_telemetry(num_samples=5000):
+def generate_vehicle_telemetry(num_samples=5000):
 
     start_time = datetime(2025, 12, 4, 10, 0, 0)
     timestamps = [start_time + timedelta(milliseconds=50*i) for i in range(num_samples)]
 
-    #Porsche telemetry realistic ranges 
+    #Automotive telemetry realistic ranges
     speed = np.clip(np.random.normal(120, 15, num_samples), 0, 280)
     rpm = np.clip(np.random.normal(4500, 800, num_samples), 800, 9000)
     throttle = np.clip(np.random.normal(40, 20, num_samples), 0, 100)
@@ -47,7 +47,7 @@ def generate_porsche_telemetry(num_samples=5000):
 
 
 if __name__ == "__main__":
-    df = generate_porsche_telemetry()
+    df = generate_vehicle_telemetry()
     df.to_csv("data/porsche_telemetry.csv", index=False)
     print("Generated: data/porsche_telemetry.csv")
 

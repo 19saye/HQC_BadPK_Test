@@ -15,7 +15,7 @@ static void print_hex(const char *tag, const uint8_t *data, size_t len) {
 int main(void) {
     printf("=== PQC OTA Update Demo (ML-DSA-44 / Dilithium) ===\n\n");
 
-    /* --- ANAHTAR ÜRETME (Porsche sunucu tarafı) --- */
+    /* --- ANAHTAR ÜRETME (OEM server side) --- */
     uint8_t pk[PQCLEAN_MLDSA44_CLEAN_CRYPTO_PUBLICKEYBYTES];
     uint8_t sk[PQCLEAN_MLDSA44_CLEAN_CRYPTO_SECRETKEYBYTES];
 
@@ -30,7 +30,7 @@ int main(void) {
         firmware[i] = (uint8_t)(i + 1);
     print_hex("[SERVER] Firmware   ", firmware, FIRMWARE_SIZE);
 
-    /* --- İMZALAMA (Porsche sunucu tarafı) --- */
+    /* --- İMZALAMA (OEM server side) --- */
     uint8_t sig[PQCLEAN_MLDSA44_CLEAN_CRYPTO_BYTES];
     size_t  sig_len = 0;
 

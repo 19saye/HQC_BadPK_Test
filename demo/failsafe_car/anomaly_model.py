@@ -7,7 +7,7 @@ from sklearn.ensemble import IsolationForest
 df = pd.read_csv("data/porsche_telemetry.csv")
 speed = df["speed_kmh"].values
 
-# === 1.1) Porsche stili smoothing (Hampel filter) ===
+# === 1.1) Smoothing (Hampel filter) ===
 def hampel_filter(input_series, window_size=5, n_sigmas=3):
     new_series = input_series.copy()
     L = len(input_series)
@@ -36,7 +36,7 @@ real_anomaly_idx = np.where(df["is_anomaly"] == 1)[0]
 raw_error = (speed_smooth - np.mean(speed_smooth))**2
 error_norm = raw_error / np.max(raw_error)
 
-# === 4) GRAFİK — Porsche Style ===
+# === 4) GRAFİK ===
 plt.figure(figsize=(16, 7))
 
 plt.plot(speed_smooth, label="signal",
@@ -52,7 +52,7 @@ plt.scatter(model_anomaly_idx, speed_smooth[model_anomaly_idx],
 plt.scatter(real_anomaly_idx, speed_smooth[real_anomaly_idx],
             color="#00CED1", s=60, label="Real anomaly")
 
-plt.title("Porsche Telemetry Anomaly Detection", fontsize=16)
+plt.title("Automotive Telemetry Anomaly Detection", fontsize=16)
 plt.xlabel("Time Index")
 plt.ylabel("Speed / Error")
 plt.grid(True, alpha=0.3)

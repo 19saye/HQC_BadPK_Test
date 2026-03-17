@@ -65,7 +65,7 @@ HQC_BadPK_Test/
 │   │   ├── aes_gcm.{c,h}            # AES-256-GCM payload encryption (OpenSSL EVP)
 │   │   ├── failsafe_ecu.{c,h}       # ECU state machine with failsafe trigger
 │   │   ├── packet_format.{c,h}      # Secure packet with CRC-32 integrity
-│   │   ├── generate_telemetry.py    # Synthetic Porsche-style telemetry (5000 samples)
+│   │   ├── generate_telemetry.py    # Synthetic automotive telemetry (5000 samples)
 │   │   ├── anomaly_model.py         # Isolation Forest anomaly detection
 │   │   ├── anomaly_plot_final.py    # Multi-signal visualization
 │   │   ├── attacks/
@@ -268,5 +268,5 @@ MIT — see [LICENSE](LICENSE)
 
 ---
 
-> This repository is an independent academic study. Not affiliated with Porsche AG.  
+> This repository is an independent academic study.  
 > All implementations use reference code from PQClean. Not for production use.
