@@ -1,7 +1,9 @@
 INC_DIR := ../PrscHQC/include
 SRC_DIR := ../PrscHQC/src
-PQCLEAN_DIR := vendor/pqclean/crypto_kem/hqc-128/clean
+PQCLEAN_DIR  := vendor/pqclean/crypto_kem/hqc-128/clean
 PQCOMMON_DIR := vendor/pqclean/common
+MLDSA_DIR    := vendor/pqclean/crypto_sign/ml-dsa-44/clean
+OTA_DIR      := demo/ota_update
 SUPPORT_DIR := support
 DEMO_DIR := demo/failsafe_car
 
@@ -62,6 +64,26 @@ $(DEMO_DIR)/failsafe_demo: $(DEMO_DIR)/main_demo.c $(DEMO_DIR)/aes_gcm.c $(DEMO_
 		-lssl -lcrypto \
 		-o $@
 
+.PHONY: ota
+ota: $(OTA_DIR)/ota_demo
+
+$(OTA_DIR)/ota_demo: $(OTA_DIR)/ota_demo.c
+	$(CC) $(CFLAGS) \
+		-I$(MLDSA_DIR) -I$(PQCOMMON_DIR) \
+		$^ \
+		$(MLDSA_DIR)/ntt.c \
+		$(MLDSA_DIR)/packing.c \
+		$(MLDSA_DIR)/poly.c \
+		$(MLDSA_DIR)/polyvec.c \
+		$(MLDSA_DIR)/reduce.c \
+		$(MLDSA_DIR)/rounding.c \
+		$(MLDSA_DIR)/sign.c \
+		$(MLDSA_DIR)/symmetric-shake.c \
+		$(PQCOMMON_DIR)/randombytes.c \
+		$(PQCOMMON_DIR)/fips202.c \
+		$(PQCOMMON_DIR)/sp800-185.c \
+		-o $@
+
 .PHONY: clean
 clean:
-	rm -f badpk badpk_real $(DEMO_DIR)/failsafe_demo
+	rm -f badpk badpk_real $(DEMO_DIR)/failsafe_demo $(OTA_DIR)/ota_demo
